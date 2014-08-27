@@ -1,0 +1,12 @@
+description     "Rollbar Agent"
+
+start on (net-device-up
+          and local-filesystems
+          and runlevel [2345])
+stop on runlevel [016]
+
+chdir /opt/rollbar-agent
+
+respawn
+
+exec /usr/bin/node ./agent.js >> /var/log/rollbar-agent.log
